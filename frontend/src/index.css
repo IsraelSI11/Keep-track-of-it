@@ -1,3 +1,17 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@import '@fontsource-variable/inter';
+
+:root {
+  --sky-blue: #8ECAE6;
+  --blue-green: #219EBC;
+  --prussian-blue: #023047;
+  --selective-yellow: #FFB703;
+  --ut-orange: #FB8500;
+}
+
+html{
+  font-family: "inter", sans-serif;
+}
