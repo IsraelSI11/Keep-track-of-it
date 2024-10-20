@@ -4,7 +4,7 @@ import { auth } from "../../utils/config/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
 interface AuthContextType {
-    currentUser: string | null;
+    currentUser: any;
     isAuthenticated: boolean;
     loading: boolean;
 }
@@ -23,9 +23,7 @@ function AuthProvider({ children }: { children: React.ReactNode }) {
     const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
-        console.log(auth);
         const unsubscribe = onAuthStateChanged(auth, (user) => {
-            console.log("Auth state changed:", user);
             initializeUser(user);
         });
 
