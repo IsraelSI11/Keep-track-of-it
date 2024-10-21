@@ -1,5 +1,5 @@
 import { AuthForm } from "../components/AuthForm";
-import { doCreateUserWithEmailAndPassword } from "../utils/config/auth";
+import { doCreateUserWithEmailAndPassword } from "../lib/firebase/auth";
 
 export function RegisterPage() {
 

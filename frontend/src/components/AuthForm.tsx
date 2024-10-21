@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { useState } from "react";
-import { doSignInWithGoogle } from "../utils/config/auth";
+import { doSignInWithGoogle } from "../lib/firebase/auth";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "../contexts/authContext/useAuth";
 

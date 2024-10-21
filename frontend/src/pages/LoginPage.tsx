@@ -1,5 +1,5 @@
 import { AuthForm } from "../components/AuthForm"
-import { doSignInWithEmailAndPassword } from "../utils/config/auth";
+import { doSignInWithEmailAndPassword } from "../lib/firebase/auth";
 
 export function LoginPage() {
 

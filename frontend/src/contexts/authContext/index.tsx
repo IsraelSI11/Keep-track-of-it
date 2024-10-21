@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { createContext, useEffect, useState } from "react";
-import { auth } from "../../utils/config/firebase";
+import { auth } from "../../lib/firebase/firebase";
 import { onAuthStateChanged } from "firebase/auth";
 
 interface AuthContextType {
