@@ -4,7 +4,6 @@ import { CostType } from "../../types/CostType";
 
 function addCost(userId: string, cost: CostType) {
     const newCostKey = push(child(ref(database), 'costs')).key;
-    // Write the new post's data simultaneously in the posts list and the user's post list.
     const updates: { [key: string]: CostType } = {};
     updates['/costs/' + newCostKey] = cost;
     updates['/user-costs/' + userId + '/' + newCostKey] = cost;
@@ -14,13 +13,19 @@ function addCost(userId: string, cost: CostType) {
 
 async function getCosts(userId: string) {
     const dbRef = ref(database);
-    const costs = await get(child(dbRef, `costs/${userId}`));
-    if (costs.exists()) {
-        const data = costs.val();
-        if (data instanceof Array) {
-            return data;
+    const costsSnapshot = await get(child(dbRef, `user-costs/${userId}`));
+    if (costsSnapshot.exists()) {
+        const costsData = costsSnapshot.val();        
+        // Verifica si los datos son un objeto (como suele ser en Firebase)
+        if (typeof costsData === 'object' && costsData !== null) {
+            // Convierte el objeto en un array de costes, agregando el id como parte de cada objeto
+            return Object.keys(costsData).map(key => ({
+                id: key,
+                ...costsData[key]
+            }));
         } else {
-            return [data];
+            // Si por alguna razón es un array o no hay datos, lo retorna directamente.
+            return [];
         }
     } else {
         return [];
