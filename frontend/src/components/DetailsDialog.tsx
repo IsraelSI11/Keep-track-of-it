@@ -13,9 +13,7 @@ export function DetailsDialog({ cost }: DetailsDialogProps) {
     return (
         <Dialog>
             <DialogTrigger>
-                <Button type="button" variant="default">
-                    Ver más
-                </Button>
+                Ver más
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

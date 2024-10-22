@@ -43,8 +43,8 @@ export function CostsLogList() {
 
     return (
         <section>
-            {costs.map((cost) => (
-                <div className="flex justify-around items-center gap-4 border bg-slate-100 hover:bg-slate-200 transition duration-200">
+            {costs.map((cost,index) => (
+                <div className="flex justify-around items-center gap-4 border bg-slate-100 hover:bg-slate-200 transition duration-200" key={index}>
                     <div className="p-3 bg-slate-200 rounded-full">
                         <img src={`/src/assets/${cost.category}.svg`} alt={`${cost.category} image`} className="w-12" />
                     </div>
