@@ -4,6 +4,7 @@ import { useAuth } from "../contexts/authContext/useAuth";
 import { getCosts } from "../lib/firebase/database";
 import { Loading } from "./Loading";
 import { toast } from "sonner";
+import { DetailsDialog } from "./DetailsDialog";
 
 export function CostsLogList() {
 
@@ -42,21 +43,15 @@ export function CostsLogList() {
 
     return (
         <section>
-            {costs.map((cost, index) => (
-                <div className="flex flex-col border rounded">
-                    <div key={index} className="flex justify-between">
-                        <div className="flex flex-col">
-                            <img src={`/src/assets/${cost.category}.svg`} alt={`${cost.category} image`} className="w-10"/>
-                            <p>{cost.date}</p>
-                        </div>
-                        <div className="flex flex-col justify-end">
-                            <p>{cost.category}</p>
-                            <p className="">Coste: {cost.cost}</p>
-                        </div>
+            {costs.map((cost) => (
+                <div className="flex justify-around items-center gap-4 border bg-slate-100 hover:bg-slate-200 transition duration-200">
+                    <div className="p-3 bg-slate-200 rounded-full">
+                        <img src={`/src/assets/${cost.category}.svg`} alt={`${cost.category} image`} className="w-12" />
                     </div>
-                    <p>{cost.description}</p>
+                    <p>{cost.date.split('T')[0]}</p>
+                    <p className="text-left">{cost.cost} €</p>
+                    <DetailsDialog cost={cost} />
                 </div>
-
             ))}
         </section>
     );
