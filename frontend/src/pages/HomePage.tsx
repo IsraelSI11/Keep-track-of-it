@@ -40,7 +40,7 @@ export function HomePage() {
             </main>
 
             <PieChartCostsMonth chartData={charData || []} />
-
+            
         </div>
     )
 }
