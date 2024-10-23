@@ -1,15 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "./ui/chart";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Label, Pie, PieChart } from "recharts";
 import { useSelector } from "react-redux";
 import { RootState } from "../redux/store";
+import { getCostsOfMonthGroupedByCategory } from "../lib/firebase/database";
+import { useAuth } from "../contexts/authContext/useAuth";
+import { Loading } from "./Loading";
 
-type PieChartCostsMonthProps = {
-    chartData: { category: string; cost: number }[];
-}
+export function PieChartCostsMonth() {
 
-export function PieChartCostsMonth({ chartData }: PieChartCostsMonthProps) {
     const chartConfig = {
         costs: {
             label: "Costs",
@@ -45,17 +45,44 @@ export function PieChartCostsMonth({ chartData }: PieChartCostsMonthProps) {
 
     } satisfies ChartConfig
 
+    const { currentUser } = useAuth();
+
+    const [chartData, setChartData] = React.useState<{ category: string; cost: number }[]>();
+
+    const [loading, setLoading] = React.useState(true);
+
+    const year = useSelector((state: RootState) => state.monthSelector.year);
+
+    const month = useSelector((state: RootState) => state.monthSelector.month);
+
+    const date = new Date(year, month - 1, 1);
+
+    useEffect(() => {
+        setLoading(true);
+        getCostsOfMonthGroupedByCategory(currentUser.uid as string, date.toISOString()).then((data) => {
+            setChartData(data);
+            setLoading(false);
+        })
+    }, [year, month])
+
     const totalCosts = React.useMemo(() => {
+        if (!chartData) return 0;
         return chartData.reduce((acc, curr) => acc + curr.cost, 0)
     }, [chartData])
 
-    let month = new Date(0, useSelector((state: RootState) => state.monthSelector.month) - 2).toLocaleString('es-ES', { month: 'long' });
-    month = month.charAt(0).toUpperCase() + month.slice(1);
+    let formatedMonth = new Date(year, month - 1).toLocaleDateString('es-ES', { month: 'long' });
+    formatedMonth = formatedMonth.charAt(0).toUpperCase() + formatedMonth.slice(1);
+
+    if (loading) {
+        return (
+            <Loading />
+        )
+    }
 
     return (
         <Card className="flex flex-col">
             <CardHeader className="items-center pb-0">
-                <CardTitle>Distribución coste - {month}</CardTitle>
+                <CardTitle>Distribución coste - {formatedMonth}</CardTitle>
             </CardHeader>
             <CardContent className="flex-1 pb-0">
                 <ChartContainer

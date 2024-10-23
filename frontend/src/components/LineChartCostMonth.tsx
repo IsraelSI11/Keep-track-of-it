@@ -15,6 +15,9 @@ import {
 } from "./ui/chart"
 import { useSelector } from "react-redux"
 import { RootState } from "../redux/store"
+import { useAuth } from "../contexts/authContext/useAuth"
+import { getCostsOfMonthGroupedByCategory } from "../lib/firebase/database"
+import { Loading } from "./Loading"
 
 export const description = "An interactive line chart"
 const chartConfig = {
@@ -27,20 +30,42 @@ const chartConfig = {
     },
 } satisfies ChartConfig
 
-type LineChartCostMonthProps = {
-    chartData: { date: string; cost: number }[]
-}
+export function LineChartCostMonth() {
 
-export function LineChartCostMonth({chartData} : LineChartCostMonthProps) {
+    const { currentUser } = useAuth();
 
-    let month = new Date(0, useSelector((state: RootState) => state.monthSelector.month) - 2).toLocaleString('es-ES', { month: 'long' });
-    month = month.charAt(0).toUpperCase() + month.slice(1);
+    const [chartData, setChartData] = React.useState<{ category: string; cost: number }[]>();
+
+    const [loading, setLoading] = React.useState(true);
+
+    const year = useSelector((state: RootState) => state.monthSelector.year);
+
+    const month = useSelector((state: RootState) => state.monthSelector.month);
+
+    const date = new Date(year, month - 1, 1);
+
+    React.useEffect(() => {
+        setLoading(true);
+        getCostsOfMonthGroupedByCategory(currentUser.uid as string, date.toISOString()).then((data) => {
+            setChartData(data);
+            setLoading(false);
+        })
+    }, [year, month]);
+
+    let formatedMonth = new Date(year, month - 1).toLocaleDateString('es-ES', { month: 'long' });
+    formatedMonth = formatedMonth.charAt(0).toUpperCase() + formatedMonth.slice(1);
+
+    if(loading) {
+        return(
+            <Loading />
+        )
+    }
 
     return (
         <Card>
             <CardHeader className="flex flex-col items-stretch space-y-0 border-b p-0 sm:flex-row">
                 <div className="flex flex-1 flex-col justify-center gap-1 px-6 py-5 sm:py-6">
-                    <CardTitle>Costes mes - {month}</CardTitle>
+                    <CardTitle>Costes mes - {formatedMonth}</CardTitle>
                 </div>
             </CardHeader>
             <CardContent className="px-2 sm:p-6">
