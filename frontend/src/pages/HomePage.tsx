@@ -7,6 +7,7 @@ import { getCostsOfMonthGroupedByCategory } from "../lib/firebase/database";
 import { Button } from "../components/ui/button";
 import { useState } from "react";
 import { PieChartCostsMonth } from "../components/PieChartCostsMonth";
+import { MonthSelector } from "../components/MonthSelector";
 
 export function HomePage() {
 
@@ -23,8 +24,6 @@ export function HomePage() {
         })
     }
 
-
-
     return (
         <div>
             <Header />
@@ -38,7 +37,7 @@ export function HomePage() {
                 </div>
                 <Button onClick={onClick}>Obtener gastos de septiembre</Button>
             </main>
-
+            <MonthSelector />
             <PieChartCostsMonth chartData={charData || []} />
             
         </div>

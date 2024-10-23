@@ -45,7 +45,7 @@ export function PieChartCostsMonth({ chartData }: PieChartCostsMonthProps) {
 
     const totalCosts = React.useMemo(() => {
         return chartData.reduce((acc, curr) => acc + curr.cost, 0)
-    }, [])
+    }, [chartData])
 
     return (
         <Card className="flex flex-col">

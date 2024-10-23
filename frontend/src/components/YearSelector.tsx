@@ -1,17 +1,22 @@
-type YearSelectorProps = {
-    year: number;
-    setYear: (year: number) => void;
-}
+import { useDispatch, useSelector } from "react-redux";
+import { decrementYear, incrementYear } from "../redux/features/monthSelector/monthSelectorSlice";
+import { RootState } from "../redux/store";
 
-export function YearSelector({year, setYear}: YearSelectorProps) {
+export function YearSelector() {
+
+    const dispatch = useDispatch();
+
+    const year = useSelector((state: RootState) => state.monthSelector.year);
 
     const onClickDecrease = () => {
-        setYear(year - 1);
+        dispatch(decrementYear())
     }
 
     const onClickIncrease = () => {
-        setYear(year + 1);
+        dispatch(incrementYear())
     }
+
+    console.log(year)
 
     return(
         <div className="flex justify-around">

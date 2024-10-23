@@ -1,59 +1,70 @@
-import { useState } from "react";
 import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { YearSelector } from "./YearSelector";
+import { useSelector, useDispatch } from "react-redux";
+import { changeMonth } from "../redux/features/monthSelector/monthSelectorSlice";
+import { RootState } from "../redux/store";
+import { Button } from "./ui/button";
 
 export function MonthSelector() {
 
-    const [year, setYear] = useState<number>(new Date().getFullYear());
+    const dispatch = useDispatch();
 
-    const [month, setMonth] = useState<number>(new Date().getMonth());
+    const year = useSelector((state: RootState) => state.monthSelector.year)
+
+    const month = useSelector((state: RootState) => state.monthSelector.month)
+
+    const customButton = (month: number, content: string) => {
+        return (
+            <button className="w-full h-full" onClick={() => dispatch(changeMonth(month))}>{content}</button>
+        )
+    }
 
     return (
         <Popover>
             <PopoverTrigger asChild>
-                {year} - {month}
+                <Button>{year} - {month}</Button>
             </PopoverTrigger>
             <PopoverContent className="w-80">
                 <div className="grid grid-rows-5 gap-4">
                     <div>
-                        <YearSelector year={year} setYear={setYear} />
+                        <YearSelector/>
                     </div>
                     <div className="row-span-4 grid grid-cols-3 grid-rows-4">
                         <div className="col-span-3 row-span-1">
-                            <button className="w-full h-full" onClick={()=>setMonth(1)}>Enero</button>
+                            {customButton(1, "Enero")}
                         </div>
                         <div className="col-span-3 row-span-1">
-                            <button className="w-full h-full" onClick={()=>setMonth(2)}>Febrero</button>
+                            {customButton(2, "Febrero")}
                         </div>
                         <div className="col-span-3 row-span-1">
-                            <button className="w-full h-full" onClick={()=>setMonth(3)}>Marzo</button>
+                            {customButton(3, "Marzo")}
                         </div>
                         <div className="col-span-3 row-span-1">
-                            <button className="w-full h-full" onClick={()=>setMonth(4)}>Abril</button>
+                            {customButton(4, "Abril")}
                         </div>
                         <div className="col-span-3 row-span-1">
-                            <button className="w-full h-full" onClick={()=>setMonth(5)}>Mayo</button>
+                            {customButton(5, "Mayo")}
                         </div>
                         <div className="col-span-3 row-span-1">
-                            <button className="w-full h-full" onClick={()=>setMonth(6)}>Junio</button>
+                            {customButton(6, "Junio")}
                         </div>
                         <div className="col-span-3 row-span-1">
-                            <button className="w-full h-full" onClick={()=>setMonth(7)}>Julio</button>
+                            {customButton(7, "Julio")}
                         </div>
                         <div className="col-span-3 row-span-1">
-                            <button className="w-full h-full" onClick={()=>setMonth(8)}>Agosto</button>
+                            {customButton(8, "Agosto")}
                         </div>
                         <div className="col-span-3 row-span-1">
-                            <button className="w-full h-full" onClick={()=>setMonth(9)}>Septiembre</button>
+                            {customButton(9, "Septiembre")}
                         </div>
                         <div className="col-span-3 row-span-1">
-                            <button className="w-full h-full" onClick={()=>setMonth(10)}>Octubre</button>
+                            {customButton(10, "Octubre")}
                         </div>
                         <div className="col-span-3 row-span-1">
-                            <button className="w-full h-full" onClick={()=>setMonth(11)}>Noviembre</button>
+                            {customButton(11, "Noviembre")}
                         </div>
                         <div className="col-span-3 row-span-1">
-                            <button className="w-full h-full" onClick={()=>setMonth(12)}>Diciembre</button>
+                            {customButton(12, "Diciembre")}
                         </div>
                     </div>
                 </div>
