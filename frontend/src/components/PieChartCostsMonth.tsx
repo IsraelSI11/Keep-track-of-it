@@ -2,6 +2,8 @@ import React from "react";
 import { ChartConfig, ChartContainer, ChartTooltip, ChartTooltipContent } from "./ui/chart";
 import { Card, CardContent, CardHeader, CardTitle } from "./ui/card";
 import { Label, Pie, PieChart } from "recharts";
+import { useSelector } from "react-redux";
+import { RootState } from "../redux/store";
 
 type PieChartCostsMonthProps = {
     chartData: { category: string; cost: number }[];
@@ -47,10 +49,13 @@ export function PieChartCostsMonth({ chartData }: PieChartCostsMonthProps) {
         return chartData.reduce((acc, curr) => acc + curr.cost, 0)
     }, [chartData])
 
+    let month = new Date(0, useSelector((state: RootState) => state.monthSelector.month) - 2).toLocaleString('es-ES', { month: 'long' });
+    month = month.charAt(0).toUpperCase() + month.slice(1);
+
     return (
         <Card className="flex flex-col">
             <CardHeader className="items-center pb-0">
-                <CardTitle>Distribución coste</CardTitle>
+                <CardTitle>Distribución coste - {month}</CardTitle>
             </CardHeader>
             <CardContent className="flex-1 pb-0">
                 <ChartContainer
