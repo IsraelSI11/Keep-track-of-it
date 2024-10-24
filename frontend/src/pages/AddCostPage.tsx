@@ -1,5 +1,5 @@
 import { CostForm } from "../components/CostForm";
-import { CostsLogList } from "../components/CostsLogList";
+import { RecentCostsLogList } from "../components/RecentCostsLogList";
 
 export function AddCostPage() {
     return (
@@ -9,7 +9,7 @@ export function AddCostPage() {
             <div className="w-full flex flex-col lg:flex-row justify-around">
                 <div className="lg:w-1/3 border rounded-2xl mb-4 lg:mb-0 p-4">
                     <h2 className="text-2xl font-semibold mb-4">Gastos añadidos recientemente</h2>
-                    <CostsLogList />
+                    <RecentCostsLogList />
                 </div>
                 <div className="lg:w-1/3 border rounded-2xl p-4">
                     <h2 className="text-2xl font-semibold mb-4">Añadir gasto</h2>

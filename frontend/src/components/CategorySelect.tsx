@@ -17,7 +17,7 @@ export function CategorySelect(props: CategorySelectProps) {
         <Select onValueChange={props.onChange} defaultValue={props.defaultValue}>
             <FormControl>
                 <SelectTrigger>
-                    <SelectValue placeholder="Select a verified email to display" />
+                    <SelectValue placeholder="Selecciona una categoría" />
                 </SelectTrigger>
             </FormControl>
             <SelectContent>

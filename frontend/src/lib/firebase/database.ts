@@ -21,6 +21,14 @@ async function getCosts(userId: string) {
     return parseFirebaseResponse(costsSnapshot);
 }
 
+async function deleteCost(userId: string, costId: string) {
+    const updates: { [key: string]: null } = {};
+    updates['/costs/' + costId] = null;
+    updates['/user-costs/' + userId + '/' + costId] = null;
+
+    return update(ref(database), updates);
+}
+
 async function getRecentCosts(userId: string) {
     const queryRef = query(child(ref(database), `user-costs/${userId}`), limitToLast(9));
     const costsSnapshot = await get(queryRef);
@@ -86,4 +94,4 @@ async function getCostsOfMonthGroupedByDay(userId: string, date: string){
 
 
 
-export { addCost, getCosts, getCostsOfMonthGroupedByCategory, getCostsOfYearGroupedByMonth, getCostsOfMonthGroupedByDay, getRecentCosts };
+export { addCost, getCosts, getCostsOfMonthGroupedByCategory, getCostsOfYearGroupedByMonth, getCostsOfMonthGroupedByDay, getRecentCosts, deleteCost };

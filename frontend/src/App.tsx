@@ -7,6 +7,7 @@ import { HomePage } from "./pages/HomePage"
 import { LoggedInLayout } from "./layouts/LoggedInLayout"
 import { DashboardPage } from "./pages/DashboardPage"
 import { AddCostPage } from "./pages/AddCostPage"
+import { HistoryPage } from "./pages/HistoryPage"
 
 function App() {
 
@@ -18,6 +19,7 @@ function App() {
       <Route path="/home" element={<LoggedInLayout><HomePage /></LoggedInLayout>} />
       <Route path="/dashboard" element={<LoggedInLayout><DashboardPage /></LoggedInLayout>} />
       <Route path="/add" element={<LoggedInLayout><AddCostPage /></LoggedInLayout>} />
+      <Route path="/history" element={<LoggedInLayout><HistoryPage /></LoggedInLayout>} />
     </Routes>
   )
 }

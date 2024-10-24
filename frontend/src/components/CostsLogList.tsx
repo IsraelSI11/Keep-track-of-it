@@ -1,13 +1,19 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { useEffect, useState } from "react";
 import { CostType } from "../types/CostType";
 import { useAuth } from "../contexts/authContext/useAuth";
-import { getRecentCosts } from "../lib/firebase/database";
 import { Loading } from "./Loading";
-import { toast } from "sonner";
 import { DetailsDialog } from "./DetailsDialog";
 import { ScrollArea } from "./ui/scroll-area";
+import { Button } from "./ui/button";
+import { deleteCost } from "../lib/firebase/database";
+import { toastMessage } from "../lib/utils";
 
-export function CostsLogList() {
+type CostsLogListProps = {
+    getCosts: (userId: any) => Promise<any>;
+};
+
+export function CostsLogList({ getCosts }: CostsLogListProps) {
 
     const { currentUser } = useAuth();
 
@@ -18,21 +24,29 @@ export function CostsLogList() {
     useEffect(() => {
         setLoading(true);
         if (currentUser) {
-            getRecentCosts(currentUser.uid).then((data) => {
+            getCosts(currentUser.uid).then((data) => {
                 setCosts(data);
                 setLoading(false);
             });
         } else {
-            toast("Error", {
-                description: "No se han podido obtener los gastos.",
-                action: {
-                    label: "Cerrar",
-                    onClick: () => { },
-                },
-            });
+            toastMessage("Error", "No se ha podido cargar los gastos.");
             setLoading(false);
         }
     }, [currentUser]);
+
+    const deleteCostFromDatabase = (costId: string) => {
+        if (costId === 'undefined') {
+            toastMessage("Error", "No se ha podido eliminar el gasto.");
+            return;
+        }
+        deleteCost(currentUser?.uid, costId).then(() => {
+            setCosts(costs.filter((cost) => cost.id !== costId));
+            toastMessage("Gasto eliminado", "Gasto eliminado correctamente.");
+        }).catch(() => {
+            toastMessage("Error", "No se ha podido eliminar el gasto.");
+        }
+        );
+    }
 
     if (loading) {
         return (
@@ -58,6 +72,7 @@ export function CostsLogList() {
                             <div className="md:mr-6">
                                 <DetailsDialog cost={cost} />
                             </div>
+                            <Button className="md:mr-6" variant={'destructive'} onClick={() => deleteCostFromDatabase(cost.id || 'undefined')}>Eliminar</Button>
                         </div>
                     ))}
                 </ScrollArea>
