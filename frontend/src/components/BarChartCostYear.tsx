@@ -64,7 +64,7 @@ export function BarChartCostYear() {
                             cursor={false}
                             content={<ChartTooltipContent hideLabel />}
                         />
-                        <Bar dataKey="cost" fill="#666666" radius={8} />
+                        <Bar dataKey="cost" fill="var(--prussian-blue)" radius={8} />
                     </BarChart>
                 </ChartContainer>
             </CardContent>

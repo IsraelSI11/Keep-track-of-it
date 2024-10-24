@@ -29,12 +29,13 @@ async function getRecentCosts(userId: string) {
 
 async function getCostsOfMonthGroupedByCategory(userId: string, date: string) {
     const costsOfMoth = await getCostsOfMonth(userId, date);
-    const groupedCosts = costsOfMoth.reduce((acc: { [key in categoryEnum]?: { category: categoryEnum; cost: number, fill: string } }, cost, index) => {
+    const groupedCosts = costsOfMoth.reduce((acc: { [key in categoryEnum]?: { category: categoryEnum; cost: number, fill: string, date:string } }, cost, index) => {
         const category = cost.category;
         if (acc[category]) {
             acc[category].cost += cost.cost;
         } else {
             acc[category] = {
+                date: cost.date,
                 category: category,
                 cost: cost.cost,
                 fill: `hsl(var(--chart-${index + 1}))`

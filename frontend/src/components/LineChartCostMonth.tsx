@@ -26,7 +26,6 @@ const chartConfig = {
     },
     cost: {
         label: "Costs",
-        color: "#777777",
     },
 } satisfies ChartConfig
 
@@ -116,7 +115,7 @@ export function LineChartCostMonth() {
                         <Line
                             dataKey={'cost'}
                             type="monotone"
-                            stroke={`#666666`}
+                            stroke={`var(--prussian-blue)`}
                             strokeWidth={2}
                             dot={false}
                         />
