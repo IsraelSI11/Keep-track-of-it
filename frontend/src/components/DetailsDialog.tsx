@@ -13,7 +13,10 @@ export function DetailsDialog({ cost }: DetailsDialogProps) {
     return (
         <Dialog>
             <DialogTrigger>
-                Ver más
+                <>
+                <a href="#" className="text-blue-500 hover:text-blue-900 underline underline-offset-2">Detalles</a>
+                </>
+                
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>

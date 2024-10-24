@@ -66,13 +66,13 @@ export function CostForm() {
 
     return (
         <Form {...form}>
-            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-12">
 
                 <FormField
                     control={form.control}
                     name="date"
                     render={({ field }) => (
-                        <FormItem>
+                        <FormItem className='flex flex-col'>
                             <FormLabel>Fecha</FormLabel>
                             <FormControl>
                                 <DatePicker field={field} />

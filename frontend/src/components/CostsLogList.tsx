@@ -32,7 +32,7 @@ export function CostsLogList() {
             });
             setLoading(false);
         }
-    }, []);
+    }, [currentUser]);
 
     if (loading) {
         return (
@@ -44,18 +44,24 @@ export function CostsLogList() {
 
     return (
         <section>
-            <ScrollArea className="h-full w-full rounded-md border">
-                {costs.map((cost, index) => (
-                    <div className="flex justify-around items-center gap-4 border bg-slate-100 hover:bg-slate-200 transition duration-200" key={index}>
-                        <div className="p-3 bg-slate-200 rounded-full">
-                            <img src={`/src/assets/${cost.category}.svg`} alt={`${cost.category} image`} className="w-12" />
+            {costs.length === 0 ? (
+                <p>No se han añadido gastos recientemente</p>
+            ) : (
+                <ScrollArea className="h-full w-full rounded-md">
+                    {costs.map((cost, index) => (
+                        <div className="w-full flex flex-col md:flex-row justify-between items-center border bg-slate-100 hover:bg-slate-200 transition duration-200 p-2 md:p-0" key={index}>
+                            <div className="p-3 bg-slate-200 rounded-full mb-2 md:mb-0 md:ml-6">
+                                <img src={`/src/assets/${cost.category}.svg`} alt={`${cost.category} image`} className="max-w-12 min-w-10" />
+                            </div>
+                            <p className="text-center flex-1 mb-2 md:mb-0">{cost.date.split('T')[0]}</p>
+                            <p className="text-left flex-1 mb-2 md:mb-0">{cost.cost} €</p>
+                            <div className="md:mr-6">
+                                <DetailsDialog cost={cost} />
+                            </div>
                         </div>
-                        <p>{cost.date.split('T')[0]}</p>
-                        <p className="text-left">{cost.cost} €</p>
-                        <DetailsDialog cost={cost} />
-                    </div>
-                ))}
-            </ScrollArea>
+                    ))}
+                </ScrollArea>
+            )}
         </section>
     );
 }
