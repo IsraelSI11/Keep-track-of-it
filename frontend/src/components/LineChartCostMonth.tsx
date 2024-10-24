@@ -45,18 +45,20 @@ export function LineChartCostMonth() {
     const date = new Date(year, month - 1, 1);
 
     React.useEffect(() => {
-        setLoading(true);
-        getCostsOfMonthGroupedByCategory(currentUser.uid as string, date.toISOString()).then((data) => {
-            setChartData(data);
-            setLoading(false);
-        })
-    }, [year, month]);
+        if (currentUser) {
+            setLoading(true);
+            getCostsOfMonthGroupedByCategory(currentUser.uid as string, date.toISOString()).then((data) => {
+                setChartData(data);
+                setLoading(false);
+            })
+        }
+    }, [currentUser,year, month]);
 
     let formatedMonth = new Date(year, month - 1).toLocaleDateString('es-ES', { month: 'long' });
     formatedMonth = formatedMonth.charAt(0).toUpperCase() + formatedMonth.slice(1);
 
-    if(loading) {
-        return(
+    if (loading) {
+        return (
             <Loading />
         )
     }

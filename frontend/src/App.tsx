@@ -4,6 +4,8 @@ import { IndexPage } from "./pages/IndexPage"
 import { LoginPage } from "./pages/LoginPage"
 import { RegisterPage } from "./pages/RegisterPage"
 import { HomePage } from "./pages/HomePage"
+import { LoggedInLayout } from "./layouts/LoggedInLayout"
+import { DashboardPage } from "./pages/DashboardPage"
 
 function App() {
 
@@ -12,7 +14,8 @@ function App() {
       <Route index path="/" element={<IndexPage />} />
       <Route path="/login" element={<LoginPage />} />
       <Route path="/register" element={<RegisterPage />} />
-      <Route path="/home" element={<HomePage />} />
+      <Route path="/home" element={<LoggedInLayout><HomePage /></LoggedInLayout>} />
+      <Route path="/dashboard" element={<LoggedInLayout><DashboardPage /></LoggedInLayout>} />
     </Routes>
   )
 }

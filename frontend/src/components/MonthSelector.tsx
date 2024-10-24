@@ -19,10 +19,13 @@ export function MonthSelector() {
         )
     }
 
+    let formatedMonth = new Date(year, month - 1).toLocaleDateString('es-ES', { month: 'long' });
+    formatedMonth = formatedMonth.charAt(0).toUpperCase() + formatedMonth.slice(1);
+
     return (
         <Popover>
             <PopoverTrigger asChild>
-                <Button>{year} - {month}</Button>
+                <Button>{year} - {formatedMonth}</Button>
             </PopoverTrigger>
             <PopoverContent className="w-80">
                 <div className="grid grid-rows-5 gap-4">

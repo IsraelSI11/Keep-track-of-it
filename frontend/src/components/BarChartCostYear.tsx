@@ -28,12 +28,14 @@ export function BarChartCostYear() {
     const year = useSelector((state: RootState) => state.monthSelector.year)
 
     useEffect(() => {
-        setLoading(true);
-        getCostsOfYearGroupedByMonth(currentUser.uid as string, year).then((data) => {
-            setChartData(data);
-            setLoading(false);
-        })
-    }, [year])
+        if (currentUser) {
+            setLoading(true);
+            getCostsOfYearGroupedByMonth(currentUser.uid as string, year).then((data) => {
+                setChartData(data);
+                setLoading(false);
+            })
+        }
+    }, [currentUser,year])
 
     if (loading) {
         return (
@@ -42,7 +44,7 @@ export function BarChartCostYear() {
     }
 
     return (
-        <Card>
+        <Card className="h-full">
             <CardHeader>
                 <CardTitle>Costes año - {year}</CardTitle>
             </CardHeader>

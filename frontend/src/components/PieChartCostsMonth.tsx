@@ -58,12 +58,14 @@ export function PieChartCostsMonth() {
     const date = new Date(year, month - 1, 1);
 
     useEffect(() => {
-        setLoading(true);
-        getCostsOfMonthGroupedByCategory(currentUser.uid as string, date.toISOString()).then((data) => {
-            setChartData(data);
-            setLoading(false);
-        })
-    }, [year, month])
+        if(currentUser){
+            setLoading(true);
+            getCostsOfMonthGroupedByCategory(currentUser.uid as string, date.toISOString()).then((data) => {
+                setChartData(data);
+                setLoading(false);
+            })
+        }
+    }, [currentUser,year, month])
 
     const totalCosts = React.useMemo(() => {
         if (!chartData) return 0;
@@ -82,7 +84,7 @@ export function PieChartCostsMonth() {
     return (
         <Card className="flex flex-col">
             <CardHeader className="items-center pb-0">
-                <CardTitle>Distribución coste - {formatedMonth}</CardTitle>
+                <CardTitle>Distribución coste - {year} - {formatedMonth}</CardTitle>
             </CardHeader>
             <CardContent className="flex-1 pb-0">
                 <ChartContainer

@@ -2,7 +2,7 @@ import { Logo } from "./Logo";
 
 export function Header() {
     return (
-        <header className="bg-prussian-blue text-white font-bold h-20 flex justify-between items-center sticky top-0">
+        <header className="bg-prussian-blue text-white font-bold h-20 flex justify-between items-center sticky top-0 z-50">
             <div className="ml-6 flex items-center">
                 <Logo fill="#fff" />
                 <ul className="ml-12 list-none">
