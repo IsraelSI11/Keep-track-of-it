@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { child, get, push, ref, update } from "firebase/database";
+import { child, get, limitToLast, push, query, ref, update } from "firebase/database";
 import { database } from "./firebase";
 import { CostType } from "../../types/CostType";
 import { parseFirebaseResponse } from "../utils";
@@ -18,6 +18,12 @@ function addCost(userId: string, cost: CostType) {
 async function getCosts(userId: string) {
     const dbRef = ref(database);
     const costsSnapshot = await get(child(dbRef, `user-costs/${userId}`));
+    return parseFirebaseResponse(costsSnapshot);
+}
+
+async function getRecentCosts(userId: string) {
+    const queryRef = query(child(ref(database), `user-costs/${userId}`), limitToLast(9));
+    const costsSnapshot = await get(queryRef);
     return parseFirebaseResponse(costsSnapshot);
 }
 
@@ -79,4 +85,4 @@ async function getCostsOfMonthGroupedByDay(userId: string, date: string){
 
 
 
-export { addCost, getCosts, getCostsOfMonthGroupedByCategory, getCostsOfYearGroupedByMonth, getCostsOfMonthGroupedByDay };
+export { addCost, getCosts, getCostsOfMonthGroupedByCategory, getCostsOfYearGroupedByMonth, getCostsOfMonthGroupedByDay, getRecentCosts };

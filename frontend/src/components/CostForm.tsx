@@ -134,7 +134,7 @@ export function CostForm() {
                     )}
                 />
 
-                <Button type="submit">Submit</Button>
+                <Button type="submit">Añadir</Button>
             </form>
         </Form>
     )
