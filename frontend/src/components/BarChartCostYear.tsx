@@ -35,13 +35,18 @@ export function BarChartCostYear() {
                 setLoading(false);
             })
         }
-    }, [currentUser,year])
+    }, [currentUser, year])
 
     if (loading) {
         return (
-            <Loading />
+            <div className="flex justify-center">
+                <Loading />
+            </div>
+
         )
     }
+
+    console.log(chartData)
 
     return (
         <Card className="h-full">
@@ -49,24 +54,31 @@ export function BarChartCostYear() {
                 <CardTitle>Costes año - {year}</CardTitle>
             </CardHeader>
             <CardContent>
-                <ChartContainer config={chartConfig}>
-                    <BarChart accessibilityLayer data={chartData}>
-                        <CartesianGrid vertical={false} />
-                        <XAxis
-                            className="uppercase text-xl"
-                            dataKey="month"
-                            tickLine={false}
-                            tickMargin={10}
-                            axisLine={false}
-                            tickFormatter={(value) => value.slice(0, 3)}
-                        />
-                        <ChartTooltip
-                            cursor={false}
-                            content={<ChartTooltipContent hideLabel />}
-                        />
-                        <Bar dataKey="cost" fill="var(--prussian-blue)" radius={8} />
-                    </BarChart>
-                </ChartContainer>
+                {chartData.length === 0 ? (
+                    <div className="h-96 flex flex-col justify-center items-center">
+                        <p>No hay gastos registrados para esta fecha</p>
+                    </div>
+
+                ) : (
+                    <ChartContainer config={chartConfig}>
+                        <BarChart accessibilityLayer data={chartData}>
+                            <CartesianGrid vertical={false} />
+                            <XAxis
+                                className="uppercase text-xl"
+                                dataKey="month"
+                                tickLine={false}
+                                tickMargin={10}
+                                axisLine={false}
+                                tickFormatter={(value) => value.slice(0, 3)}
+                            />
+                            <ChartTooltip
+                                cursor={false}
+                                content={<ChartTooltipContent hideLabel />}
+                            />
+                            <Bar dataKey="cost" fill="var(--prussian-blue)" radius={8} />
+                        </BarChart>
+                    </ChartContainer>
+                )}
             </CardContent>
         </Card>
     )

@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { CostForm } from "../components/CostForm";
 import { CostsLogList } from "../components/CostsLogList";
-import { MonthSelector } from "../components/MonthSelector";
 
 export function HomePage() {
 

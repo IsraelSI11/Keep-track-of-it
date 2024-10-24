@@ -47,7 +47,7 @@ export function PieChartCostsMonth() {
 
     const { currentUser } = useAuth();
 
-    const [chartData, setChartData] = React.useState<{ category: string; cost: number }[]>();
+    const [chartData, setChartData] = React.useState<{ category: string; cost: number }[]>([]);
 
     const [loading, setLoading] = React.useState(true);
 
@@ -58,14 +58,14 @@ export function PieChartCostsMonth() {
     const date = new Date(year, month - 1, 1);
 
     useEffect(() => {
-        if(currentUser){
+        if (currentUser) {
             setLoading(true);
             getCostsOfMonthGroupedByCategory(currentUser.uid as string, date.toISOString()).then((data) => {
                 setChartData(data);
                 setLoading(false);
             })
         }
-    }, [currentUser,year, month])
+    }, [currentUser, year, month])
 
     const totalCosts = React.useMemo(() => {
         if (!chartData) return 0;
@@ -77,7 +77,9 @@ export function PieChartCostsMonth() {
 
     if (loading) {
         return (
-            <Loading />
+            <div className="flex justify-center">
+                <Loading />
+            </div>
         )
     }
 
@@ -87,54 +89,61 @@ export function PieChartCostsMonth() {
                 <CardTitle>Distribución coste - {year} - {formatedMonth}</CardTitle>
             </CardHeader>
             <CardContent className="flex-1 pb-0">
-                <ChartContainer
-                    config={chartConfig}
-                    className="mx-auto aspect-square min-h-[250px] max-h-[550px]"
-                >
-                    <PieChart>
-                        <ChartTooltip
-                            cursor={false}
-                            content={<ChartTooltipContent hideLabel />}
-                        />
-                        <Pie
-                            data={chartData}
-                            dataKey="cost"
-                            nameKey="category"
-                            innerRadius={60}
-                            strokeWidth={5}
-                        >
-                            <Label
-                                content={({ viewBox }) => {
-                                    if (viewBox && "cx" in viewBox && "cy" in viewBox) {
-                                        return (
-                                            <text
-                                                x={viewBox.cx}
-                                                y={viewBox.cy}
-                                                textAnchor="middle"
-                                                dominantBaseline="middle"
-                                            >
-                                                <tspan
+                {chartData.length === 0 ? (
+                    <div className="h-96 flex flex-col justify-center items-center">
+                        <p>No hay gastos registrados para esta fecha</p>
+                    </div>
+
+                ) : (
+                    <ChartContainer
+                        config={chartConfig}
+                        className="mx-auto aspect-square min-h-[250px] max-h-[550px]"
+                    >
+                        <PieChart>
+                            <ChartTooltip
+                                cursor={false}
+                                content={<ChartTooltipContent hideLabel />}
+                            />
+                            <Pie
+                                data={chartData}
+                                dataKey="cost"
+                                nameKey="category"
+                                innerRadius={60}
+                                strokeWidth={5}
+                            >
+                                <Label
+                                    content={({ viewBox }) => {
+                                        if (viewBox && "cx" in viewBox && "cy" in viewBox) {
+                                            return (
+                                                <text
                                                     x={viewBox.cx}
                                                     y={viewBox.cy}
-                                                    className="fill-foreground text-3xl font-bold"
+                                                    textAnchor="middle"
+                                                    dominantBaseline="middle"
                                                 >
-                                                    {totalCosts.toLocaleString()}
-                                                </tspan>
-                                                <tspan
-                                                    x={viewBox.cx}
-                                                    y={(viewBox.cy || 0) + 24}
-                                                    className="fill-muted-foreground"
-                                                >
-                                                    €
-                                                </tspan>
-                                            </text>
-                                        )
-                                    }
-                                }}
-                            />
-                        </Pie>
-                    </PieChart>
-                </ChartContainer>
+                                                    <tspan
+                                                        x={viewBox.cx}
+                                                        y={viewBox.cy}
+                                                        className="fill-foreground text-3xl font-bold"
+                                                    >
+                                                        {totalCosts.toLocaleString()}
+                                                    </tspan>
+                                                    <tspan
+                                                        x={viewBox.cx}
+                                                        y={(viewBox.cy || 0) + 24}
+                                                        className="fill-muted-foreground"
+                                                    >
+                                                        €
+                                                    </tspan>
+                                                </text>
+                                            )
+                                        }
+                                    }}
+                                />
+                            </Pie>
+                        </PieChart>
+                    </ChartContainer>
+                )}
             </CardContent>
         </Card>
     )

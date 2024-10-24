@@ -33,7 +33,7 @@ export function LineChartCostMonth() {
 
     const { currentUser } = useAuth();
 
-    const [chartData, setChartData] = React.useState<{ category: string; cost: number }[]>();
+    const [chartData, setChartData] = React.useState<{ category: string; cost: number }[]>([]);
 
     const [loading, setLoading] = React.useState(true);
 
@@ -51,7 +51,7 @@ export function LineChartCostMonth() {
                 setLoading(false);
             })
         }
-    }, [currentUser,year, month]);
+    }, [currentUser, year, month]);
 
     let formatedMonth = new Date(year, month - 1).toLocaleDateString('es-ES', { month: 'long' });
     formatedMonth = formatedMonth.charAt(0).toUpperCase() + formatedMonth.slice(1);
@@ -70,57 +70,64 @@ export function LineChartCostMonth() {
                 </div>
             </CardHeader>
             <CardContent className="px-2 sm:p-6">
-                <ChartContainer
-                    config={chartConfig}
-                    className="aspect-auto h-[250px] w-full"
-                >
-                    <LineChart
-                        accessibilityLayer
-                        data={chartData}
-                        margin={{
-                            left: 12,
-                            right: 12,
-                        }}
+                {chartData.length === 0 ? (
+                    <div className="h-96 flex flex-col justify-center items-center">
+                        <p>No hay gastos registrados para esta fecha</p>
+                    </div>
+
+                ) : (
+                    <ChartContainer
+                        config={chartConfig}
+                        className="aspect-auto h-[250px] w-full"
                     >
-                        <CartesianGrid vertical={false} />
-                        <XAxis
-                            dataKey="date"
-                            tickLine={false}
-                            axisLine={false}
-                            tickMargin={8}
-                            minTickGap={32}
-                            tickFormatter={(value) => {
-                                const date = new Date(value)
-                                return date.toLocaleDateString("en-US", {
-                                    month: "short",
-                                    day: "numeric",
-                                })
+                        <LineChart
+                            accessibilityLayer
+                            data={chartData}
+                            margin={{
+                                left: 12,
+                                right: 12,
                             }}
-                        />
-                        <ChartTooltip
-                            content={
-                                <ChartTooltipContent
-                                    className="w-[150px]"
-                                    nameKey="views"
-                                    labelFormatter={(value) => {
-                                        return new Date(value).toLocaleDateString("en-US", {
-                                            month: "short",
-                                            day: "numeric",
-                                            year: "numeric",
-                                        })
-                                    }}
-                                />
-                            }
-                        />
-                        <Line
-                            dataKey={'cost'}
-                            type="monotone"
-                            stroke={`var(--prussian-blue)`}
-                            strokeWidth={2}
-                            dot={false}
-                        />
-                    </LineChart>
-                </ChartContainer>
+                        >
+                            <CartesianGrid vertical={false} />
+                            <XAxis
+                                dataKey="date"
+                                tickLine={false}
+                                axisLine={false}
+                                tickMargin={8}
+                                minTickGap={32}
+                                tickFormatter={(value) => {
+                                    const date = new Date(value)
+                                    return date.toLocaleDateString("en-US", {
+                                        month: "short",
+                                        day: "numeric",
+                                    })
+                                }}
+                            />
+                            <ChartTooltip
+                                content={
+                                    <ChartTooltipContent
+                                        className="w-[150px]"
+                                        nameKey="views"
+                                        labelFormatter={(value) => {
+                                            return new Date(value).toLocaleDateString("en-US", {
+                                                month: "short",
+                                                day: "numeric",
+                                                year: "numeric",
+                                            })
+                                        }}
+                                    />
+                                }
+                            />
+                            <Line
+                                dataKey={'cost'}
+                                type="monotone"
+                                stroke={`var(--prussian-blue)`}
+                                strokeWidth={2}
+                                dot={false}
+                            />
+                        </LineChart>
+                    </ChartContainer>
+                )}
             </CardContent>
         </Card>
     )

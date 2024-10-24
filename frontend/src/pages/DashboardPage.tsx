@@ -11,9 +11,12 @@ export function DashboardPage() {
                 <p className="mb-2">Selecciona una fecha para visualizar:</p>
                 <MonthSelector />
             </section>
-            <section className="w-full flex flex-col space-y-6">
-                <LineChartCostMonth />
-                <div className="flex justify-between flex-col lg:space-x-4 lg:flex-row">
+            <section className="w-full flex flex-col space-y-6 h-full">
+                <div className="min-h-48">
+                    <LineChartCostMonth />
+                </div>
+
+                <div className="flex justify-between flex-col lg:space-x-4 lg:flex-row lg:min-h-48">
                     <div className="w-full lg:w-1/2">
                         <PieChartCostsMonth />
                     </div>
