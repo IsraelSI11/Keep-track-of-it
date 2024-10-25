@@ -7,6 +7,7 @@ import { RootState } from "../redux/store";
 import { getCostsOfMonthGroupedByCategory } from "../lib/firebase/database";
 import { useAuth } from "../contexts/authContext/useAuth";
 import { Loading } from "./Loading";
+import { Separator } from "./ui/separator";
 
 export function PieChartCostsMonth() {
 
@@ -84,9 +85,10 @@ export function PieChartCostsMonth() {
     }
 
     return (
-        <Card className="flex flex-col">
-            <CardHeader className="items-center pb-0">
+        <Card className="flex flex-col h-full">
+            <CardHeader className="space-y-6">
                 <CardTitle>Distribución coste - {year} - {formatedMonth}</CardTitle>
+                <Separator/>
             </CardHeader>
             <CardContent className="flex-1 pb-0">
                 {chartData.length === 0 ? (

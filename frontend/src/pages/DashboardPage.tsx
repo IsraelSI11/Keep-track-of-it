@@ -16,7 +16,7 @@ export function DashboardPage() {
                     <LineChartCostMonth />
                 </div>
 
-                <div className="flex justify-between flex-col lg:space-x-4 lg:flex-row lg:min-h-48">
+                <div className="flex justify-between flex-col space-y-6 lg:space-y-0 lg:space-x-4 lg:flex-row lg:min-h-48">
                     <div className="w-full lg:w-1/2">
                         <PieChartCostsMonth />
                     </div>

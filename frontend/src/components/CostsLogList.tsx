@@ -25,7 +25,8 @@ export function CostsLogList({ getCosts }: CostsLogListProps) {
         setLoading(true);
         if (currentUser) {
             getCosts(currentUser.uid).then((data) => {
-                setCosts(data);
+                //Invertimos los gastos para que se muestren los más recientes primero
+                setCosts(data.reverse());
                 setLoading(false);
             });
         } else {
@@ -57,22 +58,24 @@ export function CostsLogList({ getCosts }: CostsLogListProps) {
     }
 
     return (
-        <section>
+        <section className="h-full">
             {costs.length === 0 ? (
-                <p>No se han añadido gastos recientemente</p>
+                <div className="h-full flex flex-col justify-center items-center align-middle">
+                    <p>No se han añadido gastos recientemente</p>
+                </div>
             ) : (
                 <ScrollArea className="h-full w-full rounded-md">
                     {costs.map((cost, index) => (
-                        <div className="w-full flex flex-col md:flex-row justify-between items-center border bg-slate-100 hover:bg-slate-200 transition duration-200 p-2 md:p-0" key={index}>
+                        <div className="w-full flex flex-col md:flex-row justify-between items-center border hover:bg-slate-200 transition duration-200 p-2 md:p-6" key={index}>
                             <div className="p-3 bg-slate-200 rounded-full mb-2 md:mb-0 md:ml-6">
                                 <img src={`/src/assets/${cost.category}.svg`} alt={`${cost.category} image`} className="max-w-12 min-w-10" />
                             </div>
-                            <p className="text-center flex-1 mb-2 md:mb-0">{cost.date.split('T')[0]}</p>
-                            <p className="text-left flex-1 mb-2 md:mb-0">{cost.cost} €</p>
-                            <div className="md:mr-6">
+                            <p className="text-center flex-1 text-lg mb-2 md:mb-0 md:mr-4">{cost.date.split('T')[0]}</p>
+                            <p className="text-left text-lg flex-1 mb-2 md:mb-0">{cost.cost} €</p>
+                            <div className="text-lg md:mr-6">
                                 <DetailsDialog cost={cost} />
                             </div>
-                            <Button className="md:mr-6" variant={'destructive'} onClick={() => deleteCostFromDatabase(cost.id || 'undefined')}>Eliminar</Button>
+                            <Button className="rounded-full md:mr-6" variant={'destructive'} onClick={() => deleteCostFromDatabase(cost.id || 'undefined')}>Eliminar</Button>
                         </div>
                     ))}
                 </ScrollArea>

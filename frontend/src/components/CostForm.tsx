@@ -53,7 +53,7 @@ export function CostForm() {
                     },
                 })
             }
-        }else{
+        } else {
             toast("Error", {
                 description: "Debes iniciar sesión para guardar un gasto.",
                 action: {
@@ -133,8 +133,9 @@ export function CostForm() {
                         </FormItem>
                     )}
                 />
-
-                <Button type="submit">Añadir</Button>
+                <div className='flex justify-center'>
+                    <Button type="submit" className='bg-ut-orange hover:bg-selective-yellow rounded-full px-10'>Añadir gasto</Button>
+                </div>
             </form>
         </Form>
     )

@@ -25,7 +25,7 @@ export function MonthSelector() {
     return (
         <Popover>
             <PopoverTrigger asChild>
-                <Button>{year} - {formatedMonth}</Button>
+                <Button className="bg-ut-orange hover:bg-selective-yellow">{year} - {formatedMonth}</Button>
             </PopoverTrigger>
             <PopoverContent className="w-80">
                 <div className="grid grid-rows-5 gap-4">

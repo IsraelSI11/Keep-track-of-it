@@ -8,6 +8,7 @@ import { useEffect, useState } from "react"
 import { useAuth } from "../contexts/authContext/useAuth"
 import { getCostsOfYearGroupedByMonth } from "../lib/firebase/database"
 import { Loading } from "./Loading"
+import { Separator } from "./ui/separator"
 
 export const description = "A bar chart"
 
@@ -46,12 +47,11 @@ export function BarChartCostYear() {
         )
     }
 
-    console.log(chartData)
-
     return (
         <Card className="h-full">
-            <CardHeader>
+            <CardHeader className="space-y-6">
                 <CardTitle>Costes año - {year}</CardTitle>
+                <Separator/>
             </CardHeader>
             <CardContent>
                 {chartData.length === 0 ? (
