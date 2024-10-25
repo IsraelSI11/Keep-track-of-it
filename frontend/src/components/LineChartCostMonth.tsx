@@ -22,7 +22,7 @@ import { Loading } from "./Loading"
 export const description = "An interactive line chart"
 const chartConfig = {
     views: {
-        label: "Page Views",
+        label: "Euros",
     },
     cost: {
         label: "Costs",

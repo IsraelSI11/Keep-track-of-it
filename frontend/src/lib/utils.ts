@@ -36,3 +36,8 @@ export function toastMessage(message: string, description: string) {
   });
 
 }
+
+export function toggleSidebar() {
+  const sidebar = document.querySelector('nav');
+  sidebar?.classList.toggle('translate-x-[-100%]');
+}

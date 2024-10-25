@@ -37,7 +37,7 @@ async function getRecentCosts(userId: string) {
 
 async function getCostsOfMonthGroupedByCategory(userId: string, date: string) {
     const costsOfMoth = await getCostsOfMonth(userId, date);
-    const groupedCosts = costsOfMoth.reduce((acc: { [key in categoryEnum]?: { category: categoryEnum; cost: number, fill: string, date:string } }, cost, index) => {
+    const groupedCosts = costsOfMoth.reduce((acc: { [key in categoryEnum]?: { category: categoryEnum; cost: number, fill: string, date: string } }, cost, index) => {
         const category = cost.category;
         if (acc[category]) {
             acc[category].cost += cost.cost;
@@ -50,9 +50,10 @@ async function getCostsOfMonthGroupedByCategory(userId: string, date: string) {
             }
         }
         return acc;
-    }
-        , {});
-    return Object.values(groupedCosts);
+    }, {});
+
+    const sortedGroupedCosts = Object.values(groupedCosts).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime());
+    return sortedGroupedCosts;
 }
 
 
@@ -70,9 +71,18 @@ async function getCostsOfYearGroupedByMonth(userId: string, year: number) {
             }
         }
         return acc;
-    }
-        , {});
-    return Object.values(groupedCosts);
+    }, {});
+
+    const monthOrder = [
+        'enero', 'febrero', 'marzo', 'abril', 'mayo', 'junio',
+        'julio', 'agosto', 'septiembre', 'octubre', 'noviembre', 'diciembre'
+    ];
+
+    const sortedGroupedCosts = Object.values(groupedCosts).sort((a, b) => {
+        return monthOrder.indexOf(a.month) - monthOrder.indexOf(b.month);
+    });
+    
+    return sortedGroupedCosts;
 }
 
 async function getCostsOfMonthGroupedByDay(userId: string, date: string){
