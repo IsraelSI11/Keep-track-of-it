@@ -11,7 +11,7 @@ import { DatePicker } from './DatePicker';
 import { useAuth } from '../contexts/authContext/useAuth';
 import { addCost } from '../lib/firebase/database';
 import { CostType } from '../types/CostType';
-import { toast } from 'sonner';
+import { toastMessage } from '../lib/utils';
 
 export function CostForm() {
 
@@ -45,22 +45,10 @@ export function CostForm() {
                 addCost(currentUser.uid, cost);
             } catch (error) {
                 console.log(error)
-                toast("Error", {
-                    description: "Ha ocurrido un error al guardar el gasto.",
-                    action: {
-                        label: "Cerrar",
-                        onClick: () => { },
-                    },
-                })
+                toastMessage("Error", "Ha ocurrido un error al guardar el gasto.")
             }
         } else {
-            toast("Error", {
-                description: "Debes iniciar sesión para guardar un gasto.",
-                action: {
-                    label: "Cerrar",
-                    onClick: () => { },
-                },
-            })
+            toastMessage("Error", "Debes iniciar sesión para guardar un gasto.")
         }
     }
 

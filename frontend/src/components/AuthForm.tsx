@@ -57,7 +57,7 @@ export function AuthForm({ title, description, handleSubmit, register, error }: 
 
     return (
         <div className="h-full">
-            {isAuthenticated && <Navigate to={"/home"} />}
+            {isAuthenticated && <Navigate to={"/add"} />}
             <Form {...form}>
                 <form onSubmit={form.handleSubmit(onSubmit)} className="flex flex-col py-12 px-16 h-full space-y-12">
                     <div>

@@ -16,8 +16,6 @@ export function YearSelector() {
         dispatch(incrementYear())
     }
 
-    console.log(year)
-
     return(
         <div className="flex justify-around">
             <button onClick={onClickDecrease}>&lt;</button>
