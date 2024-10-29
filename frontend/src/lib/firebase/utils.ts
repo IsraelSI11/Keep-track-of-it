@@ -41,7 +41,7 @@ async function getCostsBetweenDates(userId:string, startDate: string, endDate: s
         const costId = costIdSnapshot.key;
         const costData = costIdSnapshot.val();
         if (costData.date >= startDate && costData.date <= endDate) {
-            // Agregamos el coste al array
+            // Agregamos el gasto al array
             costsOfDate.push({
                 costId: costId,
                 date: costData.date,

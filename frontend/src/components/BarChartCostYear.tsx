@@ -50,7 +50,7 @@ export function BarChartCostYear() {
     return (
         <Card className="h-full">
             <CardHeader className="space-y-6">
-                <CardTitle>Costes año - {year}</CardTitle>
+                <CardTitle>Gastos año - {year}</CardTitle>
                 <Separator/>
             </CardHeader>
             <CardContent>

@@ -87,7 +87,7 @@ export function PieChartCostsMonth() {
     return (
         <Card className="flex flex-col h-full">
             <CardHeader className="space-y-6">
-                <CardTitle>Distribución coste - {year} - {formatedMonth}</CardTitle>
+                <CardTitle>Distribución gasto - {year} - {formatedMonth}</CardTitle>
                 <Separator/>
             </CardHeader>
             <CardContent className="flex-1 pb-0">

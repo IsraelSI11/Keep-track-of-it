@@ -19,7 +19,7 @@ export function DetailsDialog({ cost }: DetailsDialogProps) {
             </DialogTrigger>
             <DialogContent>
                 <DialogHeader>
-                    <DialogTitle>Detalles coste</DialogTitle>
+                    <DialogTitle>Detalles gasto</DialogTitle>
                 </DialogHeader>
                 <div className="flex flex-col">
                     <div className="flex mb-2">
@@ -28,7 +28,7 @@ export function DetailsDialog({ cost }: DetailsDialogProps) {
                         </div>
                         <div className="ml-8 flex flex-col justify-center">
                             <p>Categoría: {cost.category}</p>
-                            <p className="text-left">Coste: {cost.cost}</p>
+                            <p className="text-left">Gasto: {cost.cost}</p>
                         </div>
                     </div>
                     <p className="mb-2">Fecha: {fechaFormateada}</p>
