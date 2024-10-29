@@ -12,7 +12,7 @@ export function parseFirebaseResponse(dataSnapshot: DataSnapshot) {
     const costsData = dataSnapshot.val();
     // Verifica si los datos son un objeto (como suele ser en Firebase)
     if (typeof costsData === 'object' && costsData !== null) {
-      // Convierte el objeto en un array de costes, agregando el id como parte de cada objeto
+      // Convierte el objeto en un array de gastos, agregando el id como parte de cada objeto
       return Object.keys(costsData).map(key => ({
         id: key,
         ...costsData[key]
