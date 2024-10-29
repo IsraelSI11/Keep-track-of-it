@@ -17,8 +17,8 @@ export function IndexPage() {
                     <section className="flex flex-col space-y-8 p-4 md:p-0">
                         <div className="space-y-2">
                             <h1 className="uppercase font-semibold text-2xl md:text-4xl text-center opacity-0 animate-fade-in-2 delay-100">
-                                Keep <span className="text-ut-orange">track</span> of <span className="block">your expenses</span>
-                            </h1>
+                                Lleva <span className="text-ut-orange">control</span> de <span className="block">tus gastos</span>
+                            </h1>   
                             <div className="flex justify-center">
                                 <p className="w-full md:w-2/3 text-center text-slate-200 opacity-0 animate-fade-in-2 delay-500">
                                     Toma control de tus gastos diarios y simplifica tus finanzas para alcanzar tus metas más rápido.
@@ -26,7 +26,7 @@ export function IndexPage() {
                             </div>
                         </div>
                         <div className="flex justify-center opacity-0 animate-fade-in-2 delay-1000">
-                            <Button className="bg-ut-orange hover:bg-selective-yellow mt-5 rounded-full w-2/3 md:w-1/3" onClick={signIn}>Get started</Button>
+                            <Button className="bg-ut-orange hover:bg-selective-yellow mt-5 rounded-full w-2/3 md:w-1/3" onClick={signIn}>Comenzar</Button>
                         </div>
                     </section>
                 </div>

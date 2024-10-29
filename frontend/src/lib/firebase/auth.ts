@@ -1,7 +1,6 @@
-import { GoogleAuthProvider } from 'firebase/auth/web-extension';
 import { auth } from './firebase';
 
-import { createUserWithEmailAndPassword, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, updatePassword } from 'firebase/auth';
+import { createUserWithEmailAndPassword, GoogleAuthProvider, sendPasswordResetEmail, signInWithEmailAndPassword, signInWithPopup, updatePassword } from 'firebase/auth';
 
 export const doCreateUserWithEmailAndPassword = async (email: string, password: string) => {
     return createUserWithEmailAndPassword(auth, email, password);
@@ -13,8 +12,7 @@ export const doSignInWithEmailAndPassword = async (email: string, password: stri
 
 export const doSignInWithGoogle = async () => {
     const provider = new GoogleAuthProvider();
-    const result = await signInWithPopup(auth, provider);
-    return result;
+    return await signInWithPopup(auth, provider);
 }
 
 export const doSignOut = async () => {
