@@ -1,7 +1,7 @@
 
 # Keep track of it
 
-A web application to control expenses over time.
+A web application to control expenses over time implemented with React, Redux and Firebase.
 
 
 ## Installation/Dev
