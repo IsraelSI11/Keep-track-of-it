@@ -44,7 +44,7 @@ export function CostForm() {
                 }
                 console.log(values.date,cost)
                 addCost(currentUser.uid, cost);
-                //window.location.reload();
+                window.location.reload();
             } catch (error) {
                 console.log(error)
                 toastMessage("Error", "Ha ocurrido un error al guardar el gasto.")
