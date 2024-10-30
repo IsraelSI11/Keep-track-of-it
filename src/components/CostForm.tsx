@@ -40,10 +40,11 @@ export function CostForm() {
                 const cost: CostType = {
                     ...values,
                     category: values.category as categoryEnum,
-                    date: values.date.toISOString(),
+                    date: new Date(values.date.setHours(12, 0, 0, 0)).toISOString(),
                 }
+                console.log(values.date,cost)
                 addCost(currentUser.uid, cost);
-                window.location.reload();
+                //window.location.reload();
             } catch (error) {
                 console.log(error)
                 toastMessage("Error", "Ha ocurrido un error al guardar el gasto.")
