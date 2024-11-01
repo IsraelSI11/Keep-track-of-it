@@ -4,6 +4,10 @@
 A web application to control expenses over time implemented with React, Redux and Firebase.
 
 
+## Demo
+
+https://github.com/user-attachments/assets/b1e17b2d-b5ef-4629-8545-8f325078a155
+
 ## Installation/Dev
 
 Launch web client
@@ -19,10 +23,6 @@ To run this project, you will need to add the following environment variables to
 
 `VITE_API_KEY`: Firebase API KEY
 
-
-## Demo
-
-https://github.com/user-attachments/assets/b1e17b2d-b5ef-4629-8545-8f325078a155
 
 ## Authors
 
